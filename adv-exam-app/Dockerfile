@@ -1,0 +1,18 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+ARG PIP_INDEX_URL
+ENV PIP_INDEX_URL=${PIP_INDEX_URL}
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+RUN useradd -u 1001 appuser
+USER 1001
+
+EXPOSE 8080
+
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
