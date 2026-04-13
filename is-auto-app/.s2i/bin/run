@@ -1,2 +1,8 @@
 #!/bin/bash
+
+export HOME=/tmp
+export PATH=$HOME/.local/bin:$PATH
+
+echo "Starting app with Gunicorn..."
+
 exec gunicorn -b 0.0.0.0:8080 app:app
