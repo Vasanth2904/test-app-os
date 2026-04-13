@@ -5,11 +5,13 @@ echo "Starting custom S2I assemble..."
 echo "Current directory: $(pwd)"
 ls -l /tmp/scripts 
 ls -l /tmp/src
-
+cd /tmp/src
 echo "Installing Python dependencies..."
 
 if [ -f requirements.txt ]; then
-    pip install --no-cache-dir -r /tmp/scripts/requirements.txt
+    pwd;
+    ls -lrt;
+    pip install --no-cache-dir -r requirements.txt
 else
     echo "requirements.txt not found"
     exit 1
