@@ -2,6 +2,8 @@
 
 echo "Starting custom S2I assemble..."
 
+mkdir -p /opt/app-root/src/
+
 # Copy source to working directory
 cp -R /tmp/src/* /opt/app-root/src/
 
