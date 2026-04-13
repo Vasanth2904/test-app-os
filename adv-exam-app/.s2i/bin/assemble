@@ -2,17 +2,27 @@
 
 echo "Custom assemble starting..."
 
-cp -R /tmp/src/* /opt/app-root/src/
-cd /opt/app-root/src/
+# Use working directory provided by S2I
+echo "Current dir: $(pwd)"
+
+# Copy source properly (S2I already places code here in most cases)
+if [ -d /tmp/src ]; then
+  cp -R /tmp/src/. .
+fi
+
+echo "Listing files..."
+ls -l
 
 echo "Installing dependencies..."
-pip install --no-cache-dir -r requirements.txt
+if [ -f requirements.txt ]; then
+  pip install --no-cache-dir -r requirements.txt
+else
+  echo "requirements.txt not found"
+fi
 
 echo "Preparing initial data..."
 if [ -f data/sample.json ]; then
-    cp data/sample.json /tmp/data.json
+  cp data/sample.json /tmp/data.json
 fi
-
-chown -R 1001:0 /opt/app-root/src
 
 echo "Assemble completed"
