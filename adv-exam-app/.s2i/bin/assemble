@@ -2,27 +2,25 @@
 
 echo "Custom assemble starting..."
 
-# Use working directory provided by S2I
-echo "Current dir: $(pwd)"
+# Ensure we are in correct working directory
+echo "PWD: $(pwd)"
+ls -l
 
-# Copy source properly (S2I already places code here in most cases)
+# Copy source if needed
 if [ -d /tmp/src ]; then
   cp -R /tmp/src/. .
 fi
 
-echo "Listing files..."
+echo "After copy:"
 ls -l
 
-echo "Installing dependencies..."
+# Install dependencies
 if [ -f requirements.txt ]; then
+  echo "Installing dependencies..."
   pip install --no-cache-dir -r requirements.txt
 else
-  echo "requirements.txt not found"
-fi
-
-echo "Preparing initial data..."
-if [ -f data/sample.json ]; then
-  cp data/sample.json /tmp/data.json
+  echo "ERROR: requirements.txt not found"
+  exit 1
 fi
 
 echo "Assemble completed"
