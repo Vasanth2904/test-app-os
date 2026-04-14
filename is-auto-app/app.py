@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return f"""
-    <h1>ImageStream Demo 🚀</h1>
+    <h1>ImageStream Demo 2🚀</h1>
     <p>Version: {os.environ.get('APP_VERSION', '1.0')}</p>
     """
 
