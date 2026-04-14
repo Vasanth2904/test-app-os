@@ -1,22 +1,16 @@
 #!/bin/bash
 
-echo "Starting custom S2I assemble..."
+echo "Starting assemble..."
 
 cd /tmp/src
 
-echo "Setting HOME directory..."
-export HOME=/tmp
-
-echo "Installing dependencies..."
+echo "Installing dependencies into application directory..."
 
 if [ -f requirements.txt ]; then
-    pip install --no-cache-dir --user -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt --prefix=/opt/app-root/src
 else
     echo "requirements.txt not found"
     exit 1
 fi
-
-echo "Fixing PATH..."
-export PATH=$HOME/.local/bin:$PATH
 
 echo "Assemble completed successfully"
